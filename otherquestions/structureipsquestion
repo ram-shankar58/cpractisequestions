@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <string.h>
+// DEfine a structure to store account number, name and balance of customers in a bank
+//GEt the number of customers of the bank. WRite a functio to print the name of customers having balance less than 200. WRite a function to add an interest of 5%
+//to the balance of customers having more than rupees 10000 in their baolance. PRInt the detials of the customers who got interest added.
+struct bank{
+    int no;
+    int bal;
+    char name[30];
+};
+void balance(struct bank arr[], int n){
+    for (int i=0;i<n;i++){
+        if (arr[i].bal<200){
+            printf("%s\n", arr[i].name);
+        }
+    }
+}
+void interest(struct bank arr[], int n){
+    for (int i=0; i<n;i++){
+        if (arr[i].bal>10000){
+            arr[i].bal+=(0.05*arr[i].bal);
+            printf("%s\n", arr[i].name);
+        }
+    }
+}
+
+int main(){
+    int n;
+    scanf("%d", &n);
+    struct bank b[n];
+    for (int i=0; i<n; i++){
+        scanf("%d", &b[i].no); //getting bank account number
+        scanf("%d", &b[i].bal); //getting the balance of the account
+        char temp[40]=NULL;
+        fgets(temp,40,stdin);
+        strcpy(b[i].name,temp);
+        //WE have got all the details for all the users.
+
+    }
+    balance(b,n);
+    interest(b,n);
+    return 0;
+    
+}

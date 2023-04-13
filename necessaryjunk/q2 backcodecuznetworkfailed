@@ -1,66 +1,70 @@
 #include <stdio.h>
-#include<string.h>
+#include <string.h>
 #include <ctype.h>
-void check(int n, char *arr, int *alpha,int* specs, int*space, int *num){
-    *alpha,*space,*num, *specs=0;
-    for (int i=0; i<n;i++){
-        if (isalpha(arr[0])){
-            *alpha+=1;
-        }
-        if (isspace(arr[i])){
-            *space+=1;
 
-        }
-        if (isdigit(arr[i])){
-            *num+=1;
-        }
-        else{
-            *specs+=1;
-
+void check(int n, char *arr, int *alpha, int *specs, int *space, int *num) {
+    *alpha = *space = *num = *specs = 0;
+    for (int i = 0; i < n; i++) {
+        if (isalpha(arr[i])) {
+            (*alpha)++;
+        } else if (isspace(arr[i])) {
+            (*space)++;
+        } else if (isdigit(arr[i])) {
+            (*num)++;
+        } else {
+            (*specs)++;
         }
     }
 }
-int sort(char *arr, int n){
+
+void sort(char *arr, int n) {
     char copy[100];
-    int k=0;
-    for (int i=0; i<n;i++){
-        if (isalpha(arr[i])){
-            copy[k]=arr[i];
+    int k = 0;
+    for (int i = 0; i < n; i++) {
+        if (isalpha(arr[i])) {
+            copy[k] = arr[i];
             k++;
         }
     }
-    for (int i=0;i<k;i++){
-        for(int j=i+1;j<k;j++){
+    for (int i = 0; i < k; i++) {
+        for (int j = i + 1; j < k; j++) {
             char temp;
-            if (copy[i]>copy[j]){
-                temp=copy[i];
-                copy[i]=copy[j];
-                copy[j]=temp;
+            if (copy[i] > copy[j]) {
+                temp = copy[i];
+                copy[i] = copy[j];
+                copy[j] = temp;
             }
         }
     }
-    for (int i=0; i<k; i++){
+    for (int i = 0; i < k; i++) {
         printf("%c", copy[i]); //printing sorted elements
     }
-
-
+    printf("\n");
 }
 
-int main(){
+int main() {
     char str[100];
-    fgets(str,100,stdin);
-    int n=strlen(str);
-    //reversing and displaying a string
-    for (int i=0;i<n;i++){
-        puts(str);
+    fgets(str, 100, stdin);
+    int n = strlen(str);
+    if (str[n - 1] == '\n') {
+        str[n - 1] = '\0'; // remove newline character if present
+        n--; // adjust length accordingly
     }
-    int *alpha, *space, *num, *specs;
-    check(n, str,&alpha, &specs,&specs,&num);
-    printf("NUmber of white spaces %d", *space);
-    printf("Number of alphabets %d", *alpha);
-    printf("Number of digits %d", *num);
-    printf("Number of speical characters %d", *specs);
 
+    //reversing and displaying a string
+    for (int i = n - 1; i >= 0; i--) {
+        printf("%c", str[i]);
+    }
+    printf("\n");
 
-    
+    int alpha = 0, space = 0, num = 0, specs = 0;
+    check(n, str, &alpha, &specs, &space, &num);
+    printf("Number of white spaces: %d\n", space);
+    printf("Number of alphabets: %d\n", alpha);
+    printf("Number of digits: %d\n", num);
+    printf("Number of special characters: %d\n", specs);
+
+    sort(str, n);
+
+    return 0;
 }

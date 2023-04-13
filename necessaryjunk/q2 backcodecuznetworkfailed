@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include<string.h>
+#include <ctype.h>
+void check(int n, char *arr, int *alpha,int* specs, int*space, int *num){
+    *alpha,*space,*num, *specs=0;
+    for (int i=0; i<n;i++){
+        if (isalpha(arr[0])){
+            *alpha+=1;
+        }
+        if (isspace(arr[i])){
+            *space+=1;
+
+        }
+        if (isdigit(arr[i])){
+            *num+=1;
+        }
+        else{
+            *specs+=1;
+
+        }
+    }
+}
+int sort(char *arr, int n){
+    char copy[100];
+    int k=0;
+    for (int i=0; i<n;i++){
+        if (isalpha(arr[i])){
+            copy[k]=arr[i];
+            k++;
+        }
+    }
+    for (int i=0;i<k;i++){
+        for(int j=i+1;j<k;j++){
+            char temp;
+            if (copy[i]>copy[j]){
+                temp=copy[i];
+                copy[i]=copy[j];
+                copy[j]=temp;
+            }
+        }
+    }
+
+
+}
+
+int main(){
+    char str[100];
+    fgets(str,100,stdin);
+    int n=strlen(str);
+    //reversing and displaying a string
+    for (int i=0;i<n;i++){
+        puts(str);
+    }
+    int *alpha, *space, *num, *specs;
+    check(n, str,&alpha, &specs,&specs,&num);
+    printf("NUmber of white spaces %d", *space);
+    printf("Number of alphabets %d", *alpha);
+    printf("Number of digits %d", *num);
+    printf("Number of speical characters %d", *specs);
+
+
+    
+}

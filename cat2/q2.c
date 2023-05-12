@@ -19,12 +19,32 @@ int studentfinder(int n, struct students *student){ //passing an array of struct
     int i, maxroll=-1;
     float maxcgpa=-1.0;
     for (i=0; i<n; i++){
-        if (maxcgpa<*(student+i).cgpa){
-            maxcgpa=*(student+i).cgpa;
+        if (maxcgpa<(*(student+i)).cgpa){
+            maxcgpa=(*(student+i)).cgpa;
+            maxroll=(*(student+i)).roll;
+
         }
     }
+    return maxroll;
 }
 
 int main(){
-    struct students 
+    int n;
+    scanf("%d",&n);
+    struct students students[n];
+    for (int i=0; i<n; i++){
+        printf("Enter the roll number, CGPA of the student %d", i+1);
+        scanf("%d %f", &(students[i].roll), &(students[i].cgpa));
+    }
+    for (int i=0; i<n; i++){
+        printf("Roll number : %d; CGPA :%d; Reference: %x\n", student[i].roll, student[i].cgpa, &student[i]);
+
+    }
+    //finding the best student
+    int beststudent=studentfinder(n, students);
+    printf("The best student details are: \n");
+    printf("Roll bo %d\n", beststudent);
+
+return 0;
+     
 }

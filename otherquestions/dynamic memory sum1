@@ -9,36 +9,46 @@ Prompt the user to enter each element of the array.
 Find the maximum and minimum values in the array using call by reference and pointers.
 Display the maximum and minimum values to the user.
 Free the dynamically allocated memory.*/
+
 #include <stdio.h>
-void findMinMax(int *arr, int size, int*max, int *min){
-    *max=*min=*(arr);
-    for (int i=0;i<size;i++){
-        *max=(arr[i]>*max)?*(arr+i):*max;
-        if (*(arr+i)<*min){
-            *min=arr[i];
-        }
-    }
+#include <stdlib.h>
 
+void findMinMax(int* arr, int size, int* max, int* min) {
+    *max = *min = arr[0]; // Initialize max and min with the first element
+
+    for (int i = 1; i < size; i++) {
+        *max = (arr[i] > *max) ? arr[i] : *max;
+        *min = (arr[i] < *min) ? arr[i] : *min;
+    }
 }
-int main(){
+
+int main() {
     int size;
-    int *min;
-    int*max;
-    scanf("%d",&size);
-    int *array;
-    array=(int *)calloc(size,sizeof(int));
-    printf("Enter the elements of the array\n");
-    for (int i=0;i<size;i++){
-        printf("Element %d: ", i+1);
-        scanf("%d",&array[i]);
+    int* min;
+    int* max;
+    scanf("%d", &size);
 
+    int* array;
+    array = (int*)calloc(size, sizeof(int));
+
+    printf("Enter the elements of the array:\n");
+    for (int i = 0; i < size; i++) {
+        printf("Element %d: ", i + 1);
+        scanf("%d", &array[i]);
     }
-    //collected all elements of the array
-    findMinMax(*array, size, &max, &min);
-    printf("THe biggest and smallest values are \n");
-    printf("%d\n %d", max, min);
+
+    // Allocate memory for min and max variables
+    min = (int*)calloc(1, sizeof(int));
+    max = (int*)calloc(1, sizeof(int));
+
+    findMinMax(array, size, max, min);
+
+    printf("The biggest and smallest values are:\n");
+    printf("%d\n%d\n", *max, *min);
+
     free(array);
+    free(min);
+    free(max);
+
     return 0;
-
-
 }

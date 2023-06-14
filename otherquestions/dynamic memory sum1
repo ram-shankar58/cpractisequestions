@@ -1,0 +1,44 @@
+//practise programs
+/*Problem: Write a C program that dynamically allocates memory for an array of integers, populates the array with user input, and then finds the maximum and minimum values in the array using call by reference and pointers.
+
+Your program should perform the following steps:
+
+Prompt the user to enter the size of the array.
+Dynamically allocate memory for the array based on the user input.
+Prompt the user to enter each element of the array.
+Find the maximum and minimum values in the array using call by reference and pointers.
+Display the maximum and minimum values to the user.
+Free the dynamically allocated memory.*/
+#include <stdio.h>
+void findMinMax(int *arr, int size, int*max, int *min){
+    *max=*min=*(arr);
+    for (int i=0;i<size;i++){
+        *max=(arr[i]>*max)?*(arr+i):*max;
+        if (*(arr+i)<*min){
+            *min=arr[i];
+        }
+    }
+
+}
+int main(){
+    int size;
+    int *min;
+    int*max;
+    scanf("%d",&size);
+    int *array;
+    array=(int *)calloc(size,sizeof(int));
+    printf("Enter the elements of the array\n");
+    for (int i=0;i<size;i++){
+        printf("Element %d: ", i+1);
+        scanf("%d",&array[i]);
+
+    }
+    //collected all elements of the array
+    findMinMax(*array, size, &max, &min);
+    printf("THe biggest and smallest values are \n");
+    printf("%d\n %d", max, min);
+    free(array);
+    return 0;
+
+
+}
